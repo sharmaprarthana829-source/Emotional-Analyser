@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: emotion-analyser
+    runtime: python
+    plan: free
+    buildCommand: bash render-build.sh
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 120
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.10.14
+      - key: PYTHONUNBUFFERED
+        value: "1"
+      - key: TF_CPP_MIN_LOG_LEVEL
+        value: "2"
+      - key: TF_USE_LEGACY_KERAS
+        value: "1"
